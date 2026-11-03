@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMEZONE — Graj za darmo</title>
+<style>
+:root{--bg:#090b16;--panel:#12172a;--panel2:#191f38;--cyan:#35e7ff;--pink:#ff4fd8;--text:#f4f6ff;--muted:#a8b0ca}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#1b2350 0,transparent 35%),radial-gradient(circle at 90% 15%,#351746 0,transparent 30%),var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+header{padding:24px 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;position:sticky;top:0;background:#090b16df;backdrop-filter:blur(12px);z-index:5}
+.logo{font-weight:1000;font-size:27px;letter-spacing:1px}.logo span{color:var(--cyan);text-shadow:0 0 18px #35e7ff88}
+nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-size:14px}nav a:hover{color:var(--cyan)}
+.hero{padding:76px 6% 48px;max-width:1200px;margin:auto}.tag{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase}
+h1{font-size:clamp(40px,7vw,76px);line-height:.98;margin:16px 0}.hero h1 span{background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:17px;max-width:560px;line-height:1.6}.button{border:0;border-radius:12px;padding:13px 20px;background:linear-gradient(100deg,var(--cyan),#7b8cff);color:#07101b;font-weight:900;cursor:pointer;margin-top:12px}
+main{max-width:1200px;margin:auto;padding:10px 6% 70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin:20px 0}.section-head h2{font-size:27px;margin:0}.section-head p{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid #ffffff16;border-radius:18px;padding:22px;min-height:190px;transition:.2s;display:flex;flex-direction:column;align-items:flex-start}.card:hover{transform:translateY(-5px);border-color:#35e7ff88;box-shadow:0 12px 35px #0007}.icon{font-size:36px;margin-bottom:12px}.card h3{margin:0 0 8px;font-size:20px}.card p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 16px}.card button{margin-top:auto;background:#ffffff10;border:1px solid #ffffff25;color:white;border-radius:10px;padding:10px 15px;cursor:pointer;font-weight:bold}.card button:hover{background:#35e7ff;color:#07101b}
+.gamebox{display:none;margin-top:25px;background:var(--panel);border:1px solid #35e7ff55;border-radius:18px;padding:20px}.gamebox.active{display:block}.game-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.game-top h3{margin:0}.close{background:#ffffff12;border:1px solid #ffffff22;color:white;border-radius:9px;padding:8px 12px;cursor:pointer}
+canvas{display:block;background:#070b16;border:1px solid #ffffff20;border-radius:12px;margin:18px auto 8px;max-width:100%}.game-info{text-align:center;color:var(--muted);font-size:13px}.controls{text-align:center;margin-top:10px}.controls button{background:#202944;color:white;border:1px solid #ffffff22;border-radius:9px;padding:10px 15px;margin:3px;cursor:pointer}
+.quiz{max-width:600px;margin:20px auto;text-align:center}.quiz button{display:block;width:100%;margin:9px 0;padding:13px;border:1px solid #ffffff25;border-radius:10px;background:#202944;color:white;cursor:pointer}.quiz button:hover{border-color:var(--cyan)}.score{color:var(--cyan);font-weight:bold}
+footer{text-align:center;color:#7e88a8;border-top:1px solid #ffffff15;padding:25px;font-size:13px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}nav{display:none}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding-top:55px}.section-head p{display:none}}
+</style>
+</head>
+<body>
+<header><div class="logo">GAME<span>ZONE</span></div><nav><a href="#gry">Gry</a><a href="#o-nas">O stronie</a></nav></header>
+<section class="hero">
+ <div class="tag">Twoja strefa rozrywki</div>
+ <h1>Wskakuj do<br><span>GAMEZONE</span></h1>
+ <p>Małe gry, wielka zabawa. Wybierz swoją grę i sprawdź, ile punktów uda ci się zdobyć. Wszystko działa bezpośrednio w przeglądarce.</p>
+ <button class="button" onclick="document.getElementById('gry').scrollIntoView({behavior:'smooth'})">ZOBACZ GRY ↓</button>
+</section>
+<main>
+ <section id="gry">
+  <div class="section-head"><h2>Wybierz grę</h2><p>3 gry • za darmo • bez pobierania</p></div>
+  <div class="grid">
+   <article class="card"><div class="icon">🐍</div><h3>Neon Snake</h3><p>Zbieraj punkty, rośnij i nie uderz w ścianę ani własny ogon.</p><button onclick="openGame('snake')">GRAJ TERAZ →</button></article>
+   <article class="card"><div class="icon">🚀</div><h3>Space Dodge</h3><p>Unikaj nadlatujących przeszkód i postaraj się przetrwać jak najdłużej.</p><button onclick="openGame('dodge')">GRAJ TERAZ →</button></article>
+   <article class="card"><div class="icon">🧠</div><h3>Quiz Master</h3><p>Odpowiadaj na pytania i sprawdź swoją wiedzę.</p><button onclick="openGame('quiz')">GRAJ TERAZ →</button></article>
+  </div>
+ </section>
+ <section class="gamebox" id="gamebox">
+  <div class="game-top"><h3 id="gameTitle">Gra</h3><button class="close" onclick="closeGame()">Zamknij ✕</button></div>
+  <div id="gameArea"></div>
+ </section>
+ <section id="o-nas" style="margin-top:55px"><div class="section-head"><h2>O GAMEZONE</h2></div><p style="color:var(--muted);line-height:1.7;max-width:700px">GAMEZONE to mały portal z prostymi grami przeglądarkowymi. Wybierz grę, baw się dobrze i bij własne rekordy. Strona jest demonstracyjnym projektem, który możesz dalej rozwijać.</p></section>
+</main>
+<footer>© 2026 GAMEZONE • Zrobione do dobrej zabawy</footer>
+<script>
+let loop=null, keys={}, snakeState=null, dodgeState=null;
+function stop(){if(loop){clearInterval(loop);loop=null}}
+function openGame(name){stop();const box=document.getElementById('gamebox'),area=document.getElementById('gameArea');box.classList.add('active');box.scrollIntoView({behavior:'smooth',block:'start'});
+ if(name==='snake'){document.getElementById('gameTitle').textContent='🐍 Neon Snake';area.innerHTML='<div class="game-info">Sterowanie: strzałki na klawiaturze lub przyciski poniżej</div><canvas id="board" width="400" height="400"></canvas><div class="game-info" id="status">Wynik: 0</div><div class="controls"><button onclick="turn(0,-1)">↑</button><br><button onclick="turn(-1,0)">←</button><button onclick="turn(0,1)">↓</button><button onclick="turn(1,0)">→</button><br><button onclick="startSnake()">Restart</button></div>';startSnake()}
+ if(name==='dodge'){document.getElementById('gameTitle').textContent='🚀 Space Dodge';area.innerHTML='<div class="game-info">Poruszaj się strzałkami lub A/D i unikaj bloków</div><canvas id="board" width="400" height="400"></canvas><div class="game-info" id="status">Wynik: 0</div><div class="controls"><button onclick="moveShip(-1)">←</button><button onclick="moveShip(1)">→</button><button onclick="startDodge()">Restart</button></div>';startDodge()}
+ if(name==='quiz'){document.getElementById('gameTitle').textContent='🧠 Quiz Master';area.innerHTML='<div class="quiz" id="quiz"></div>';startQuiz()}
+}
+function closeGame(){stop();document.getElementById('gamebox').classList.remove('active')}
+document.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key==='ArrowUp')turn(0,-1);if(e.key==='ArrowDown')turn(0,1);if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')turn(-1,0);if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')turn(1,0)});
+function turn(x,y){if(snakeState && !(x===-snakeState.dx&&y===-snakeState.dy)){snakeState.next={x,y}}}
+function startSnake(){stop();let c=document.getElementById('board');if(!c)return;let ctx=c.getContext('2d');snakeState={body:[{x:10,y:10},{x:9,y:10},{x:8,y:10}],dx:1,dy:0,next:{x:1,y:0},food:{x:15,y:10},score:0,over:false};function tick(){let s=snakeState;if(!s||s.over)return;s.dx=s.next.x;s.dy=s.next.y;let head={x:s.body[0].x+s.dx,y:s.body[0].y+s.dy};if(head.x<0||head.y<0||head.x>=20||head.y>=20||s.body.some(p=>p.x===head.x&&p.y===head.y)){s.over=true;document.getElementById('status').textContent='Koniec gry! Wynik: '+s.score+' • Kliknij Restart';return}s.body.unshift(head);if(head.x===s.food.x&&head.y===s.food.y){s.score+=10;s.food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else s.body.pop();ctx.fillStyle='#070b16';ctx.fillRect(0,0,400,400);ctx.fillStyle='#ff4fd8';ctx.fillRect(s.food.x*20+3,s.food.y*20+3,14,14);s.body.forEach((p,i)=>{ctx.fillStyle=i?'#168da9':'#35e7ff';ctx.fillRect(p.x*20+2,p.y*20+2,16,16)});document.getElementById('status').textContent='Wynik: '+s.score}tick();loop=setInterval(tick,115)}
+function moveShip(d){if(dodgeState)dodgeState.x=Math.max(15,Math.min(385,dodgeState.x+d*28))}
+function startDodge(){stop();let c=document.getElementById('board');if(!c)return;let ctx=c.getContext('2d');dodgeState={x:200,blocks:[],score:0,over:false,t:0};function tick(){let s=dodgeState;if(!s||s.over)return;s.t++;if(s.t%22===0)s.blocks.push({x:Math.random()*360+10,y:-20,w:18+Math.random()*25,h:18+Math.random()*25});s.blocks.forEach(b=>b.y+=3.3+s.score/100);s.blocks=s.blocks.filter(b=>b.y<420);for(let b of s.blocks){if(Math.abs(s.x-(b.x+b.w/2))<22&&b.y+ b.h>350&&b.y<390){s.over=true;document.getElementById('status').textContent='Koniec gry! Wynik: '+s.score+' • Kliknij Restart';return}}s.score++;ctx.fillStyle='#070b16';ctx.fillRect(0,0,400,400);ctx.fillStyle='#ff4fd8';s.blocks.forEach(b=>ctx.fillRect(b.x,b.y,b.w,b.h));ctx.fillStyle='#35e7ff';ctx.beginPath();ctx.moveTo(s.x,345);ctx.lineTo(s.x-15,385);ctx.lineTo(s.x+15,385);ctx.closePath();ctx.fill();document.getElementById('status').textContent='Wynik: '+Math.floor(s.score/5)}tick();loop=setInterval(tick,30)}
+document.addEventListener('keydown',e=>{if(dodgeState){if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')moveShip(-1);if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')moveShip(1)}});
+const questions=[['Ile wynosi 7 × 8?',['54','56','64'],1],['Która planeta jest najbliżej Słońca?',['Wenus','Mars','Merkury'],2],['Jaki jest stolicą Polski?',['Kraków','Warszawa','Gdańsk'],1],['Ile boków ma sześciokąt?',['5','6','8'],1],['Które zwierzę jest największe?',['Płetwal błękitny','Słoń','Żyrafa'],0]];
+function startQuiz(){let i=0,score=0;function show(){let q=questions[i],el=document.getElementById('quiz');if(i>=questions.length){el.innerHTML='<h2>Koniec quizu!</h2><p class="score">Twój wynik: '+score+'/'+questions.length+'</p><button onclick="startQuiz()">Zagraj ponownie</button>';return}el.innerHTML='<p class="score">Pytanie '+(i+1)+'/'+questions.length+' • Punkty: '+score+'</p><h3>'+q[0]+'</h3>'+q[1].map((a,n)=>'<button onclick="answer('+n+')">'+a+'</button>').join('');window.answer=n=>{if(n===q[2])score++;i++;show()}}show()}
+</script>
+</body></html>
